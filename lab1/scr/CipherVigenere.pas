@@ -56,7 +56,7 @@ begin
     begin
       if Count = Length(Rkey) then
         SetLength(Rkey, Count shl 1);
-      RKey[Count] := index;
+      RKey[Count] := index-1;
       Inc(Count);
     end;
   end;
@@ -71,20 +71,25 @@ begin
       index := Pos(Result[i],Alpha);
       if index > 0 then
       begin
-        Result[i] := Alpha[(Length(AlphaU) + (index - 1) + encrypt * Rkey[count]) mod Length(Alpha) + 1];
+        Result[i] := Alpha[(Length(Alpha)-1 + (index) + encrypt * (Rkey[count])) mod Length(Alpha) + 1];
+        count := (count + 1) mod Length(Rkey);
+        if count = 0 then
+        for J := Low(Rkey) to High(Rkey) do
+          Rkey[J] := (Rkey[J] + 1) mod Length(Alpha);
       end
       else
       begin
         index := Pos(Result[i],AlphaU);
         if index > 0 then
         begin
-          Result[i] := AlphaU[(Length(AlphaU) + (index - 1) + encrypt * Rkey[count] ) mod Length(AlphaU) + 1];
+          Result[i] := AlphaU[(Length(AlphaU)-1 + (index) + encrypt * (Rkey[count])) mod Length(AlphaU) + 1];
+          count := (count + 1) mod Length(Rkey);
+          if count = 0 then
+          for J := Low(Rkey) to High(Rkey) do
+            Rkey[J] := (Rkey[J] + 1) mod Length(Alpha);
         end;
       end;
-      count := (count + 1) mod Length(Rkey);
-      if count = 0 then
-        for J := Low(Rkey) to High(Rkey) do
-          Rkey[J] := (Rkey[J]) mod Length(Alpha) + 1;
+
     end;
 
   end;
