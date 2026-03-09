@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls,
-  Vcl.ExtDlgs, Vcl.Samples.Spin;
+  Vcl.ExtDlgs, Vcl.Samples.Spin, System.Math;
 
 
 
@@ -42,12 +42,15 @@ type
     mvOut: TMemo;
     mgIn: TMemo;
     segMatrix: TSpinEdit;
+    cbOpti: TCheckBox;
     procedure bgStartClick(Sender: TObject);
     procedure bgOpenClick(Sender: TObject);
     procedure bgSaveClick(Sender: TObject);
     procedure bvOpenClick(Sender: TObject);
     procedure bvSaveClick(Sender: TObject);
     procedure bvStartClick(Sender: TObject);
+    procedure cbOptiClick(Sender: TObject);
+    procedure mgInChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -119,7 +122,6 @@ procedure TfMain.bvStartClick(Sender: TObject);
 var
   lang: TLang;
 begin
-  FillMatrix(StrToInt(segMatrix.Text));
   lang := TLang(cvSelectLang.ItemIndex);
   if cvSelectMode.ItemIndex = 1 then
     mvOut.Text := DecipherVigenere(mvIn.Text,evKey.Text, lang)
@@ -127,4 +129,16 @@ begin
     mvOut.Text := EncryptVigenere(mvIn.Text,evKey.Text, lang);
 
 end;
+procedure TfMain.cbOptiClick(Sender: TObject);
+begin
+  segMatrix.Enabled := not cbOpti.Checked;
+  mgInChange(mgIn);
+end;
+
+procedure TfMain.mgInChange(Sender: TObject);
+begin
+    if cbOpti.Checked then
+     segMatrix.Text := IntToStr(Max(1,Ceil(Sqrt(Length(GetFreeText(mgIn.Text,TLang(cgSelectLang.ItemIndex)))))));
+end;
+
 end.

@@ -7,7 +7,7 @@ uses Main;
 procedure FillMatrix(gSize: Integer);
 function EncryptGrile(text:String; Lang: TLang):String;
 function DecipherGrile(text:String; Lang: TLang):String;
-
+function GetFreeText(const text: string; Lang: TLang): string;
 
 
 implementation

@@ -50,6 +50,7 @@ object fMain: TfMain
           Width = 345
           Height = 425
           TabOrder = 1
+          OnChange = mgInChange
         end
       end
       object pgControl: TPanel
@@ -68,7 +69,7 @@ object fMain: TfMain
           Caption = #1042#1099#1073#1086#1088' '#1103#1079#1099#1082#1072
         end
         object lgMatrix: TLabel
-          Left = 185
+          Left = 169
           Top = 6
           Width = 137
           Height = 15
@@ -89,6 +90,7 @@ object fMain: TfMain
           ItemIndex = 1
           TabOrder = 0
           Text = #1056#1091#1089#1089#1082#1080#1081
+          OnChange = cbOptiClick
           Items.Strings = (
             'English'
             #1056#1091#1089#1089#1082#1080#1081)
@@ -133,14 +135,23 @@ object fMain: TfMain
           OnClick = bgSaveClick
         end
         object segMatrix: TSpinEdit
-          Left = 185
+          Left = 272
           Top = 27
-          Width = 137
+          Width = 56
           Height = 24
           MaxValue = 2147483647
           MinValue = 1
           TabOrder = 5
           Value = 4
+        end
+        object cbOpti: TCheckBox
+          Left = 166
+          Top = 29
+          Width = 97
+          Height = 17
+          Caption = #1054#1087#1090#1080#1084#1072#1083#1100#1085#1072#1103
+          TabOrder = 6
+          OnClick = cbOptiClick
         end
       end
     end
