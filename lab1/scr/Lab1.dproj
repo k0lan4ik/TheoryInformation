@@ -129,6 +129,10 @@
         </DCCReference>
         <DCCReference Include="CipherGrile.pas"/>
         <DCCReference Include="CipherVigenere.pas"/>
+        <DCCReference Include="GrilleSetup.pas">
+            <Form>fGrilleSetup</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -152,6 +156,12 @@
             </Delphi.Personality>
             <Deployment Version="4">
                 <DeployFile LocalName="Win32\Debug\Lab1.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>Lab1.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win32\Release\Lab1.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Lab1.exe</RemoteName>
                         <Overwrite>true</Overwrite>

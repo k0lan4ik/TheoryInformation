@@ -7,8 +7,6 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls,
   Vcl.ExtDlgs, Vcl.Samples.Spin, System.Math;
 
-
-
 type
   TfMain = class(TForm)
     pcMain: TPageControl;
@@ -43,6 +41,8 @@ type
     mgIn: TMemo;
     segMatrix: TSpinEdit;
     cbOpti: TCheckBox;
+    lGrille: TLabel;
+    btnSetupGrille: TButton; // <-- НОВАЯ КНОПКА ДЛЯ ВЫЗОВА ФОРМЫ
     procedure bgStartClick(Sender: TObject);
     procedure bgOpenClick(Sender: TObject);
     procedure bgSaveClick(Sender: TObject);
@@ -51,6 +51,7 @@ type
     procedure bvStartClick(Sender: TObject);
     procedure cbOptiClick(Sender: TObject);
     procedure mgInChange(Sender: TObject);
+    procedure btnSetupGrilleClick(Sender: TObject); // <-- ОБРАБОТЧИК НОВОЙ КНОПКИ
   private
     { Private declarations }
   public
@@ -67,9 +68,7 @@ implementation
 
 {$R *.dfm}
 
-uses CipherGrile, CipherVigenere;
-
-
+uses CipherGrile, CipherVigenere, GrilleSetup; // <-- ДОБАВИЛИ GRILLESETUP
 
 procedure TfMain.bgOpenClick(Sender: TObject);
 begin
@@ -87,20 +86,37 @@ begin
   end;
 end;
 
+procedure TfMain.btnSetupGrilleClick(Sender: TObject);
+begin
+  // Передаем размер матрицы в новую форму
+  fGrilleSetup.GridSize := segMatrix.Value;
+
+  // Открываем форму как модальное окно
+  if fGrilleSetup.ShowModal = mrOk then
+  begin
+    // Передаем выбранные ячейки в шифратор
+    SetUserMatrix(segMatrix.Value, fGrilleSetup.UserHoles);
+    ShowMessage('Трафарет успешно задан!');
+  end;
+end;
+
 procedure TfMain.bgStartClick(Sender: TObject);
 var
   lang: TLang;
 begin
-  FillMatrix(StrToInt(segMatrix.Text));
+  // Если матрица НЕ была задана визуально, используем стандартную генерацию
+  if (fGrilleSetup = nil) or (Length(fGrilleSetup.UserHoles) = 0) then
+    FillMatrix(StrToInt(segMatrix.Text))
+  else
+    // Если была задана, обновляем её на случай, если пользователь поменял размер в SpinEdit, но не переоткрыл окно
+    SetUserMatrix(segMatrix.Value, fGrilleSetup.UserHoles);
+
   lang := TLang(cgSelectLang.ItemIndex);
   if cgSelectMode.ItemIndex = 1 then
     mgOut.Text := DecipherGrile(mgIn.Text, lang)
   else
     mgOut.Text := EncryptGrile(mgIn.Text, lang);
-
 end;
-
-
 
 procedure TfMain.bvOpenClick(Sender: TObject);
 begin
@@ -124,11 +140,11 @@ var
 begin
   lang := TLang(cvSelectLang.ItemIndex);
   if cvSelectMode.ItemIndex = 1 then
-    mvOut.Text := DecipherVigenere(mvIn.Text,evKey.Text, lang)
+    mvOut.Text := DecipherVigenere(mvIn.Text, evKey.Text, lang)
   else
-    mvOut.Text := EncryptVigenere(mvIn.Text,evKey.Text, lang);
-
+    mvOut.Text := EncryptVigenere(mvIn.Text, evKey.Text, lang);
 end;
+
 procedure TfMain.cbOptiClick(Sender: TObject);
 begin
   segMatrix.Enabled := not cbOpti.Checked;
@@ -137,8 +153,9 @@ end;
 
 procedure TfMain.mgInChange(Sender: TObject);
 begin
-    if cbOpti.Checked then
-     segMatrix.Text := IntToStr(Max(1,Ceil(Sqrt(Length(GetFreeText(mgIn.Text,TLang(cgSelectLang.ItemIndex)))))));
+  if cbOpti.Checked then
+    segMatrix.Text := IntToStr(Max(1, Ceil(Sqrt(Length(GetFreeText(mgIn.Text, TLang(cgSelectLang.ItemIndex)))))));
 end;
 
 end.
+

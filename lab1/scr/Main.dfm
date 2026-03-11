@@ -24,8 +24,6 @@ object fMain: TfMain
     Align = alClient
     TabOrder = 0
     TabWidth = 100
-    ExplicitWidth = 686
-    ExplicitHeight = 518
     object tsGrile: TTabSheet
       Caption = #1057#1077#1090#1082#1072
       object pgEdits: TPanel
@@ -35,8 +33,6 @@ object fMain: TfMain
         Height = 399
         Align = alBottom
         TabOrder = 0
-        ExplicitTop = 89
-        ExplicitWidth = 678
         object mgOut: TMemo
           Left = 344
           Top = 0
@@ -60,7 +56,6 @@ object fMain: TfMain
         Height = 97
         Align = alTop
         TabOrder = 1
-        ExplicitWidth = 678
         object lgLang: TLabel
           Left = 1
           Top = 6
@@ -69,23 +64,30 @@ object fMain: TfMain
           Caption = #1042#1099#1073#1086#1088' '#1103#1079#1099#1082#1072
         end
         object lgMatrix: TLabel
-          Left = 169
+          Left = 105
           Top = 6
           Width = 137
           Height = 15
           Caption = #1042#1099#1073#1086#1088' '#1088#1072#1079#1084#1077#1088#1072' '#1090#1072#1073#1083#1080#1094#1099
         end
         object lCipher: TLabel
-          Left = 344
+          Left = 392
           Top = 6
           Width = 84
           Height = 15
           Caption = #1042#1099#1073#1086#1088' '#1088#1077#1078#1080#1084#1072
         end
+        object lGrille: TLabel
+          Left = 283
+          Top = 6
+          Width = 92
+          Height = 15
+          Caption = #1042#1099#1073#1086#1088' '#1087#1088#1086#1088#1077#1079#1077#1081
+        end
         object cgSelectLang: TComboBox
           Left = 0
           Top = 27
-          Width = 145
+          Width = 89
           Height = 23
           ItemIndex = 1
           TabOrder = 0
@@ -105,9 +107,9 @@ object fMain: TfMain
           OnClick = bgStartClick
         end
         object cgSelectMode: TComboBox
-          Left = 344
-          Top = 26
-          Width = 145
+          Left = 392
+          Top = 27
+          Width = 114
           Height = 23
           ItemIndex = 0
           TabOrder = 2
@@ -135,7 +137,7 @@ object fMain: TfMain
           OnClick = bgSaveClick
         end
         object segMatrix: TSpinEdit
-          Left = 272
+          Left = 208
           Top = 27
           Width = 56
           Height = 24
@@ -145,13 +147,22 @@ object fMain: TfMain
           Value = 4
         end
         object cbOpti: TCheckBox
-          Left = 166
-          Top = 29
+          Left = 105
+          Top = 27
           Width = 97
           Height = 17
           Caption = #1054#1087#1090#1080#1084#1072#1083#1100#1085#1072#1103
           TabOrder = 6
           OnClick = cbOptiClick
+        end
+        object btnSetupGrille: TButton
+          Left = 283
+          Top = 27
+          Width = 92
+          Height = 25
+          Caption = #1047#1072#1076#1072#1090#1100
+          TabOrder = 7
+          OnClick = btnSetupGrilleClick
         end
       end
     end
