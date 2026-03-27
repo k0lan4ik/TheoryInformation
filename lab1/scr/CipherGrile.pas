@@ -5,14 +5,13 @@ interface
 uses Main;
 
 type
-  // Вынесли тип сюда, чтобы его видела новая форма настройки
   TCipMatrix = array of record
     X: Byte;
     Y: Byte;
   end;
 
 procedure FillMatrix(gSize: Integer);
-procedure SetUserMatrix(gSize: Integer; const UserHoles: TCipMatrix); // Новая процедура
+procedure SetUserMatrix(gSize: Integer; const UserHoles: TCipMatrix);
 function EncryptGrile(text: String; Lang: TLang): String;
 function DecipherGrile(text: String; Lang: TLang): String;
 function GetFreeText(const text: string; Lang: TLang): string;

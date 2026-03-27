@@ -87,7 +87,6 @@ begin
     Exit;
   end;
 
-  // Формулы 3-х поворотов для проверки перекрытия
   X1 := GridSize - 1 - ARow;
   Y1 := ACol;
   X2 := GridSize - 1 - ACol;
@@ -111,7 +110,6 @@ procedure TfGrilleSetup.btnOkClick(Sender: TObject);
 var
   c, r, ExpectedHoles, UserCount: Integer;
 begin
-  // Считаем, сколько отверстий должен выбрать пользователь (без учета центра)
   ExpectedHoles := (GridSize * GridSize) div 4;
   UserCount := 0;
 
@@ -119,7 +117,6 @@ begin
     for c := 0 to sgGrille.ColCount - 1 do
       if (sgGrille.Cells[c, r] = 'X') then
       begin
-        // Пропускаем центр при подсчете
         if (GridSize mod 2 = 1) and (c = GridSize div 2) and (r = GridSize div 2) then
           Continue;
         Inc(UserCount);
@@ -133,21 +130,18 @@ begin
     Exit;
   end;
 
-  // Если всё верно, собираем массив для алгоритма
   SetLength(UserHoles, 0);
   for r := 0 to sgGrille.RowCount - 1 do
     for c := 0 to sgGrille.ColCount - 1 do
       if (sgGrille.Cells[c, r] = 'X') then
       begin
         if (GridSize mod 2 = 1) and (c = GridSize div 2) and (r = GridSize div 2) then
-          Continue; // Центр пока игнорируем
-
+          Continue;
         SetLength(UserHoles, Length(UserHoles) + 1);
         UserHoles[High(UserHoles)].X := c;
         UserHoles[High(UserHoles)].Y := r;
       end;
 
-  // И ТОЛЬКО ТЕПЕРЬ добавляем центр строго в самый конец массива, как требует твой алгоритм
   if GridSize mod 2 = 1 then
   begin
     SetLength(UserHoles, Length(UserHoles) + 1);

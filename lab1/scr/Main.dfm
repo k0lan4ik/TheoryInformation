@@ -24,6 +24,8 @@ object fMain: TfMain
     Align = alClient
     TabOrder = 0
     TabWidth = 100
+    ExplicitWidth = 686
+    ExplicitHeight = 518
     object tsGrile: TTabSheet
       Caption = #1057#1077#1090#1082#1072
       object pgEdits: TPanel
@@ -33,6 +35,8 @@ object fMain: TfMain
         Height = 399
         Align = alBottom
         TabOrder = 0
+        ExplicitTop = 89
+        ExplicitWidth = 678
         object mgOut: TMemo
           Left = 344
           Top = 0
@@ -56,6 +60,7 @@ object fMain: TfMain
         Height = 97
         Align = alTop
         TabOrder = 1
+        ExplicitWidth = 678
         object lgLang: TLabel
           Left = 1
           Top = 6
@@ -172,10 +177,11 @@ object fMain: TfMain
       object pvControl: TPanel
         Left = 0
         Top = 0
-        Width = 680
+        Width = 678
         Height = 137
         Align = alTop
         TabOrder = 0
+        ExplicitWidth = 680
         object lvLang: TLabel
           Left = 1
           Top = 6

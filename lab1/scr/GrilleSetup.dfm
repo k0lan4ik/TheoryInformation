@@ -32,11 +32,12 @@ object fGrilleSetup: TfGrilleSetup
     Height = 50
     Align = alTop
     TabOrder = 1
+    ExplicitWidth = 214
     DesignSize = (
       216
       50)
     object btnOk: TButton
-      Left = 130
+      Left = 128
       Top = 10
       Width = 74
       Height = 34
@@ -45,8 +46,7 @@ object fGrilleSetup: TfGrilleSetup
       ModalResult = 1
       TabOrder = 0
       OnClick = btnOkClick
-      ExplicitLeft = 526
-      ExplicitHeight = 25
+      ExplicitLeft = 126
     end
     object btnCancel: TButton
       Left = 8
@@ -57,7 +57,6 @@ object fGrilleSetup: TfGrilleSetup
       Caption = #1054#1090#1084#1077#1085#1072
       ModalResult = 2
       TabOrder = 1
-      ExplicitHeight = 25
     end
   end
 end

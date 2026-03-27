@@ -68,7 +68,7 @@ implementation
 
 {$R *.dfm}
 
-uses CipherGrile, CipherVigenere, GrilleSetup; // <-- ДОБАВИЛИ GRILLESETUP
+uses CipherGrile, CipherVigenere, GrilleSetup;
 
 procedure TfMain.bgOpenClick(Sender: TObject);
 begin
@@ -88,13 +88,10 @@ end;
 
 procedure TfMain.btnSetupGrilleClick(Sender: TObject);
 begin
-  // Передаем размер матрицы в новую форму
   fGrilleSetup.GridSize := segMatrix.Value;
 
-  // Открываем форму как модальное окно
   if fGrilleSetup.ShowModal = mrOk then
   begin
-    // Передаем выбранные ячейки в шифратор
     SetUserMatrix(segMatrix.Value, fGrilleSetup.UserHoles);
     ShowMessage('Трафарет успешно задан!');
   end;
@@ -104,11 +101,9 @@ procedure TfMain.bgStartClick(Sender: TObject);
 var
   lang: TLang;
 begin
-  // Если матрица НЕ была задана визуально, используем стандартную генерацию
   if (fGrilleSetup = nil) or (Length(fGrilleSetup.UserHoles) = 0) then
     FillMatrix(StrToInt(segMatrix.Text))
   else
-    // Если была задана, обновляем её на случай, если пользователь поменял размер в SpinEdit, но не переоткрыл окно
     SetUserMatrix(segMatrix.Value, fGrilleSetup.UserHoles);
 
   lang := TLang(cgSelectLang.ItemIndex);

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.051,D:\Университет\2 курс\ТИ\lab1\Project1.dproj=D:\Университет\2 курс\ТИ\lab1\Lab1.dproj</Transaction>
-    <Transaction>2026.03.11 13:42:39.367,=C:\Users\detec\Desktop\poit\коля\ти\1\scr\Unit1.pas</Transaction>
-    <Transaction>2026.03.11 13:56:30.253,C:\Users\detec\Desktop\poit\коля\ти\1\scr\GrilleSetup.pas=C:\Users\detec\Desktop\poit\коля\ти\1\scr\Unit1.pas</Transaction>
-    <Transaction>2026.03.11 13:56:30.253,C:\Users\detec\Desktop\poit\коля\ти\1\scr\GrilleSetup.dfm=C:\Users\detec\Desktop\poit\коля\ти\1\scr\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.253,C:\Users\detec\Desktop\poit\коля\ти\1\scr\Unit1.dfm=C:\Users\detec\Desktop\poit\коля\ти\1\scr\GrilleSetup.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.051,D:\Университет\2 курс\ТИ\lab1\Lab1.dproj=D:\Университет\2 курс\ТИ\lab1\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.253,C:\Users\detec\Desktop\poit\коля\ти\1\scr\Unit1.pas=C:\Users\detec\Desktop\poit\коля\ти\1\scr\GrilleSetup.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.367,=C:\Users\detec\Desktop\poit\коля\ти\1\scr\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>
