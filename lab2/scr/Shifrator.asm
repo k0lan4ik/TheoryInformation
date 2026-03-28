@@ -66,7 +66,7 @@ fileSize            dd ?
 pSrcBuf             dd ?
 pKeyBuf             dd ?
 pDstBuf             dd ?
-bytesRW             dd ?        ; < FIX 6: глобальный буфер дл€ ReadFile/WriteFile
+bytesRW             dd ?
 
 seed_buffer         rw MAX_SEED_LEN
 seed_len            dd ?
@@ -159,7 +159,7 @@ proc WindowProc hwnd,wmsg,wparam,lparam
            160,10,250,20,[hwnd],IDC_EDIT_SEED,[hInstance],0
     mov [hEditSeed],eax
 
-    ; ?????? ? ???
+
     invoke CreateWindowExW,0,WC_BUTTON,txt_open,\
            WS_CHILD or WS_VISIBLE,\
            10,40,100,25,[hwnd],IDC_BTN_OPEN,[hInstance],0
@@ -169,7 +169,7 @@ proc WindowProc hwnd,wmsg,wparam,lparam
     invoke CreateWindowExW,0,WC_BUTTON,txt_decrypt,\
            WS_CHILD or WS_VISIBLE,\
            230,40,100,25,[hwnd],IDC_BTN_DEC,[hInstance],0
-    ; ????????? ?????? Save
+
     invoke CreateWindowExW,0,WC_BUTTON,txt_save,\
            WS_CHILD or WS_VISIBLE,\
            340,40,110,25,[hwnd],IDC_BTN_SAVE,[hInstance],0
@@ -357,7 +357,7 @@ proc LFSR_Step
     ret
 endp
 
-; FIX 3,4: сохран€ем EBX/ECX, убираем ложный zero_state
+
 proc LFSR_Byte
     push ecx
     push ebx
