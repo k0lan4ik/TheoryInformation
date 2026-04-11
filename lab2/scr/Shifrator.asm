@@ -224,6 +224,8 @@ proc WindowProc hwnd,wmsg,wparam,lparam
     je .do_dec
     cmp eax,IDC_BTN_SAVE
     je .do_save
+    cmp eax,IDC_BTN_CLEAR
+    je .do_clear
     jmp .def
 
 .do_open:
@@ -249,6 +251,10 @@ proc WindowProc hwnd,wmsg,wparam,lparam
 
 .do_clear:
     ; ???????? ???
+    invoke        SendMessage,[hEditKey],WM_SETTEXT,0,0
+    invoke        SendMessage,[hEditSrc],WM_SETTEXT,0,0
+    invoke        SendMessage,[hEditDst],WM_SETTEXT,0,0
+    ;invoke        SendMessage,[hEditSeed],WM_SETTEXT,0,0
     cmp [pSrcBuf],0
     je @f
     invoke GlobalFree,[pSrcBuf]
