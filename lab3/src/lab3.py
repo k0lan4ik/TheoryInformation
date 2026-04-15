@@ -35,7 +35,7 @@ def fast_pow(base, exp, mod):
 class RSAApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("RSA Шифрование (Коля)")
+        self.root.title("RSA Шифрование")
         self.root.geometry("650x700")
         
         self.n = None
@@ -67,11 +67,11 @@ class RSAApp:
         frame_keys = tk.LabelFrame(self.root, text="2. Выбор ключей", padx=10, pady=10)
         frame_keys.pack(fill="x", padx=10, pady=5)
         
-        tk.Label(frame_keys, text="Выберите открытый ключ (e):").grid(row=0, column=0, sticky="w")
-        self.combo_e = ttk.Combobox(frame_keys, width=15, state="disabled")
-        self.combo_e.grid(row=0, column=1, padx=5)
+        tk.Label(frame_keys, text="Выберите закрытый ключ (d):").grid(row=0, column=0, sticky="w")
+        self.combo_d = ttk.Combobox(frame_keys, width=15, state="disabled")
+        self.combo_d.grid(row=0, column=1, padx=5)
         
-        tk.Button(frame_keys, text="Вычислить закрытый (d)", command=self.calc_keys).grid(row=0, column=2, padx=10)
+        tk.Button(frame_keys, text="Вычислить открытый (e)", command=self.calc_keys).grid(row=0, column=2, padx=10)
         
         # Frame 3: Файловые операции
         frame_files = tk.LabelFrame(self.root, text="3. Файловые операции (можно ввести готовые ключи вручную)", padx=10, pady=10)
@@ -124,8 +124,8 @@ class RSAApp:
             return
             
         n = p * q
-        if not (n <= 65535):
-            messagebox.showerror("Ошибка", f"Модуль N={n}. Он должен не превышать 65535 (2 байта).")
+        if not (255 <n <= 65535):
+            messagebox.showerror("Ошибка", f"Модуль N={n}. Он должен быть больше 255 и не превышать 65535 (2 байта).")
             return
             
         self.n = n
@@ -135,30 +135,30 @@ class RSAApp:
         self.log(f"Генерация возможных открытых ключей e для Ф(N)={self.phi}...")
         self.root.update()
         
-        valid_e = []
+        valid_d = []
         for i in range(2, self.phi):
             gcd_val, _, _ = extended_gcd(i, self.phi)
             if gcd_val == 1:
-                valid_e.append(str(i))
+                valid_d.append(str(i))
                 
-        self.combo_e.config(values=valid_e, state="readonly")
-        if valid_e:
-            self.combo_e.current(0)
-        self.log(f"Найдено {len(valid_e)} возможных значений для ключа.")
-        messagebox.showinfo("Успех", "Модуль рассчитан. Выберите открытый ключ из списка.")
+        self.combo_d.config(values=valid_d, state="readonly")
+        if valid_d:
+            self.combo_d.current(0)
+        self.log(f"Найдено {len(valid_d)} возможных значений для ключа.")
+        messagebox.showinfo("Успех", "Модуль рассчитан. Выберите закрытый ключ из списка.")
 
     def calc_keys(self):
         if not self.phi:
             messagebox.showerror("Ошибка", "Сначала рассчитайте модуль N.")
             return
             
-        selected_e = self.combo_e.get()
-        if not selected_e:
-            messagebox.showerror("Ошибка", "Выберите открытый ключ (e) из списка.")
+        selected_d = self.combo_d.get()
+        if not selected_d:
+            messagebox.showerror("Ошибка", "Выберите закрытый ключ (d) из списка.")
             return
             
-        self.e = int(selected_e)
-        self.d = mod_inverse(self.e, self.phi)
+        self.d = int(selected_d)
+        self.e = mod_inverse(self.d, self.phi)
         self.log(f"Ключи установлены! Открытый(e)={self.e}, Закрытый(d)={self.d}")
         
         self.entry_n_manual.delete(0, tk.END)
@@ -177,11 +177,9 @@ class RSAApp:
             return
             
         # Проверки на границы (вместимость в 2 байта)
-        if not (current_n <= 65535):
-            messagebox.showerror("Ошибка", "Модуль (N) должен не превышать 65535 (2 байта).")
-            return
-        if not (1 < current_e <= 65535):
-            messagebox.showerror("Ошибка", "Открытый ключ (e) должен быть больше 1 и не превышать 65535 (2 байта).")
+        if not (255 < current_n <= 65535):
+            messagebox.showerror("Ошибка", f"Модуль N={current_n}. Он должен быть больше 255 и не превышать 65535 (2 байта).")
+            
             return
             
         filepath = filedialog.askopenfilename(title="Выберите файл для шифрования")
@@ -227,8 +225,8 @@ class RSAApp:
             return
             
         # Проверки на границы (вместимость в 2 байта)
-        if not (current_n <= 65535):
-            messagebox.showerror("Ошибка", "Модуль (N) должен не превышать 65535 (2 байта).")
+        if not (255 < current_n <= 65535):
+            messagebox.showerror("Ошибка", "Модуль (N) должен быть больше 255 и не превышать 65535 (2 байта).")
             return
         if not (1 < current_d <= 65535):
             messagebox.showerror("Ошибка", "Закрытый ключ (d) должен быть больше 1 и не превышать 65535 (2 байта).")
